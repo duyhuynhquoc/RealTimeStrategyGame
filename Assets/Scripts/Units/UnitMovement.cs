@@ -37,7 +37,7 @@ public class UnitMovement : NetworkBehaviour
     [ClientCallback]
     private void Update()
     {
-        if (!hasAuthority)
+        if (!isOwned)
         {
             return;
         }
