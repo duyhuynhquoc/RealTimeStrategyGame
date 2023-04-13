@@ -241,6 +241,7 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
+  unitMovement: {fileID: 8850677609833802668}
   onSelected:
     m_PersistentCalls:
       m_Calls:

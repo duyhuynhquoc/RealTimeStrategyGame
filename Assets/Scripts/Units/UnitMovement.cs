@@ -15,7 +15,7 @@ public class UnitMovement : NetworkBehaviour
     #region Server
 
     [Command]
-    private void CmdMove(Vector3 position)
+    public void CmdMove(Vector3 position)
     {
         if (!NavMesh.SamplePosition(position, out NavMeshHit hit, 1f, NavMesh.AllAreas))
         {
@@ -23,37 +23,6 @@ public class UnitMovement : NetworkBehaviour
         }
 
         agent.SetDestination(hit.position);
-    }
-
-    #endregion
-
-    #region Client
-
-    public override void OnStartAuthority()
-    {
-        mainCamera = Camera.main;
-    }
-
-    [ClientCallback]
-    private void Update()
-    {
-        if (!isOwned)
-        {
-            return;
-        }
-
-        if (!Mouse.current.rightButton.wasPressedThisFrame)
-        {
-            return;
-        }
-
-        Ray ray = mainCamera.ScreenPointToRay(Mouse.current.position.ReadValue());
-        if (!Physics.Raycast(ray, out RaycastHit hit))
-        {
-            return;
-        }
-
-        CmdMove(hit.point);
     }
 
     #endregion
