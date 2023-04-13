@@ -13,6 +13,9 @@ public class UnitMovement : NetworkBehaviour
     [SerializeField]
     private Targeter targeter = null;
 
+    [SerializeField]
+    private float chaseRange = 10f;
+
     private Camera mainCamera;
 
     #region Server
@@ -20,6 +23,23 @@ public class UnitMovement : NetworkBehaviour
     [ServerCallback]
     private void Update()
     {
+        // If the unit has a target, chase it
+        Targetable target = targeter.GetTarget();
+        if (target != null)
+        {
+            if (
+                (target.transform.position - transform.position).sqrMagnitude
+                > chaseRange * chaseRange
+            )
+            {
+                agent.SetDestination(target.transform.position);
+            }
+            else if (agent.hasPath)
+            {
+                agent.ResetPath();
+            }
+        }
+
         if (agent.hasPath && agent.remainingDistance < agent.stoppingDistance)
         {
             agent.ResetPath();
