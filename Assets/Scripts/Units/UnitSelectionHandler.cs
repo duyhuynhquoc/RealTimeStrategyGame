@@ -49,15 +49,21 @@ public class UnitSelectionHandler : MonoBehaviour
 
     private void StartSelectionArea()
     {
-        foreach (Unit selectedUnit in SelectedUnits)
+        // If we are pressing shift, do not clear the current selection
+        if (!Keyboard.current.leftShiftKey.isPressed)
         {
-            selectedUnit.Deselect();
+            foreach (Unit selectedUnit in SelectedUnits)
+            {
+                selectedUnit.Deselect();
+            }
+
+            SelectedUnits.Clear();
         }
 
-        SelectedUnits.Clear();
-
+        // Active the selection UI image
         unitSelectionArea.gameObject.SetActive(true);
 
+        // Set start position of selection area
         startPosition = Mouse.current.position.ReadValue();
 
         UpdateSelectionArea();
@@ -65,6 +71,7 @@ public class UnitSelectionHandler : MonoBehaviour
 
     private void UpdateSelectionArea()
     {
+        // Update the size and position of the selection area
         Vector2 mousePosition = Mouse.current.position.ReadValue();
 
         float areaWidth = mousePosition.x - startPosition.x;
@@ -77,14 +84,17 @@ public class UnitSelectionHandler : MonoBehaviour
 
     private void ClearSelectionArea()
     {
+        // Deactivate the selection UI image
         unitSelectionArea.gameObject.SetActive(false);
 
+        // If is clicking on a unit, select it
         if (unitSelectionArea.sizeDelta.magnitude == 0)
         {
             SelectASingleUnit();
             return;
         }
 
+        // If is dragging the mouse, select all units within the selection area
         SelectMultipleUnits();
     }
 
@@ -92,6 +102,12 @@ public class UnitSelectionHandler : MonoBehaviour
     {
         foreach (Unit unit in player.GetMyUnits())
         {
+            // If the unit is already selected, do not select it again
+            if (SelectedUnits.Contains(unit))
+            {
+                continue;
+            }
+
             if (IsWithinSelectionBounds(unit.gameObject))
             {
                 SelectedUnits.Add(unit);
@@ -107,6 +123,7 @@ public class UnitSelectionHandler : MonoBehaviour
 
         Vector3 screenPosition = mainCamera.WorldToScreenPoint(gameObject.transform.position);
 
+        // Compare the position of the unit with the position of the selection area
         return screenPosition.x > min.x
             && screenPosition.x < max.x
             && screenPosition.y > min.y
