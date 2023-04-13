@@ -32,6 +32,19 @@ public class UnitCommandAttacher : MonoBehaviour
             return;
         }
 
+        if (hit.collider.TryGetComponent<Targetable>(out Targetable target))
+        {
+            // If it is ally, do not target
+            if (target.isOwned)
+            {
+                TryMove(hit.point);
+                return;
+            }
+
+            TryTarget(target);
+            return;
+        }
+
         TryMove(hit.point);
     }
 
@@ -40,6 +53,14 @@ public class UnitCommandAttacher : MonoBehaviour
         foreach (Unit selectedUnit in unitSelectionHandler.SelectedUnits)
         {
             selectedUnit.GetUnitMovement().CmdMove(point);
+        }
+    }
+
+    private void TryTarget(Targetable target)
+    {
+        foreach (Unit selectedUnit in unitSelectionHandler.SelectedUnits)
+        {
+            selectedUnit.GetTargeter().CmdSetTarget(target.gameObject);
         }
     }
 }

@@ -11,6 +11,9 @@ public class Unit : NetworkBehaviour
     private UnitMovement unitMovement = null;
 
     [SerializeField]
+    private Targeter targeter = null;
+
+    [SerializeField]
     private UnityEvent onSelected = null;
 
     [SerializeField]
@@ -25,6 +28,11 @@ public class Unit : NetworkBehaviour
     public UnitMovement GetUnitMovement()
     {
         return unitMovement;
+    }
+
+    public Targeter GetTargeter()
+    {
+        return targeter;
     }
 
     #region Server
