@@ -32,6 +32,8 @@ public class UnitSpawner : NetworkBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
+        Debug.Log("Clicked");
+
         if (eventData.button != PointerEventData.InputButton.Left)
         {
             return;
