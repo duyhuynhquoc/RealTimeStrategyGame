@@ -40,28 +40,26 @@ public class UnitFiring : NetworkBehaviour
             return;
         }
 
-        if (Time.time > (1f / fireRate) + lastFireTime)
+        Quaternion targetRotation = Quaternion.LookRotation(
+            target.transform.position - transform.position
+        );
+
+        transform.rotation = Quaternion.RotateTowards(
+            transform.rotation,
+            targetRotation,
+            rotationSpeed * Time.deltaTime
+        );
+
+        if (Time.time > (1 / fireRate) + lastFireTime)
         {
-            Debug.Log("Fire");
-
-            Quaternion targetRotation = Quaternion.LookRotation(
-                target.transform.position - transform.position
-            );
-
-            transform.rotation = Quaternion.RotateTowards(
-                transform.rotation,
-                targetRotation,
-                rotationSpeed * Time.deltaTime
-            );
-
-            Quaternion projectTileRotation = Quaternion.LookRotation(
+            Quaternion projectileRotation = Quaternion.LookRotation(
                 target.GetAimAtPoint().position - projectileSpawnPoint.position
             );
 
             GameObject projectileInstance = Instantiate(
                 projectilePrefab,
                 projectileSpawnPoint.position,
-                projectTileRotation
+                projectileRotation
             );
 
             NetworkServer.Spawn(projectileInstance, connectionToClient);
