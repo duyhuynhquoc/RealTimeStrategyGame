@@ -322,6 +322,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9115249578764583516, guid: 59956b123954c4161b0c2f9da4a3fcf7,
         type: 3}
+      propertyPath: gameOverHandler
+      value: 
+      objectReference: {fileID: 8711561491831517375, guid: df41592b184ae4c8b8e806b2e68b49c2,
+        type: 3}
+    - target: {fileID: 9115249578764583516, guid: 59956b123954c4161b0c2f9da4a3fcf7,
+        type: 3}
+      propertyPath: gameOverHandlerPrefab
+      value: 
+      objectReference: {fileID: 8711561491831517375, guid: df41592b184ae4c8b8e806b2e68b49c2,
+        type: 3}
+    - target: {fileID: 9115249578764583516, guid: 59956b123954c4161b0c2f9da4a3fcf7,
+        type: 3}
       propertyPath: spawnPrefabs.Array.size
       value: 3
       objectReference: {fileID: 0}
