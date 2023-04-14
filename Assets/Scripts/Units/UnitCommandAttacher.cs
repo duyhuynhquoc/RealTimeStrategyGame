@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,6 +17,13 @@ public class UnitCommandAttacher : MonoBehaviour
     private void Start()
     {
         mainCamera = Camera.main;
+
+        GameOverHandler.ClientOnGameOver += ClientHandleGameOver;
+    }
+
+    private void OnDestroy()
+    {
+        GameOverHandler.ClientOnGameOver -= ClientHandleGameOver;
     }
 
     private void Update()
@@ -62,5 +70,10 @@ public class UnitCommandAttacher : MonoBehaviour
         {
             selectedUnit.GetTargeter().CmdSetTarget(target.gameObject);
         }
+    }
+
+    private void ClientHandleGameOver(string winnerName)
+    {
+        enabled = false;
     }
 }
