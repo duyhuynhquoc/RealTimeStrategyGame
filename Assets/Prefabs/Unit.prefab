@@ -105,7 +105,7 @@ GameObject:
   - component: {fileID: 5899307372371738428}
   - component: {fileID: 1729327128635913291}
   - component: {fileID: 4930562373646394575}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Unit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -442,11 +442,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: HealthBarCanvas
-      objectReference: {fileID: 0}
-    - target: {fileID: 9157061426979694424, guid: 21889409511f94ca2b3f7732a3f61a10,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9157061426979694430, guid: 21889409511f94ca2b3f7732a3f61a10,
         type: 3}
