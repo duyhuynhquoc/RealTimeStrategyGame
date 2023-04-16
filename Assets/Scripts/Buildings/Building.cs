@@ -7,6 +7,9 @@ using UnityEngine;
 public class Building : NetworkBehaviour
 {
     [SerializeField]
+    private GameObject buildingPreview = null;
+
+    [SerializeField]
     private Sprite icon = null;
 
     [SerializeField]
@@ -20,6 +23,11 @@ public class Building : NetworkBehaviour
 
     public static event Action<Building> AuthorityOnBuildingSpawned;
     public static event Action<Building> AuthorityOnBuildingDespawned;
+
+    public GameObject GetBuildingPreview()
+    {
+        return buildingPreview;
+    }
 
     public Sprite getIcon()
     {
